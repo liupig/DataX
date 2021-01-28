@@ -1,0 +1,60 @@
+{
+    "job": {
+        "setting": {
+            "speed": {
+                 "channel": 1
+            },
+            "errorLimit": {
+                "record": 0,
+                "percentage": 0.02
+            }
+        },
+        "content": [
+            {
+                "reader": {
+                    "name": "mysqlreader",
+                    "parameter": {
+                        "username": "username",
+                        "password": "password",
+                        "column": [
+                            "vin",
+                            "orderid"
+                        ],
+                        "connection": [
+                            {
+                                "table": [
+                                    "ma_order_info"
+                                ],
+                                "jdbcUrl": [
+     "jdbc:mysql://127.0.0.1:3306/oil"
+                                ]
+                            }
+                        ]
+                    }
+                },
+                "writer": {
+                    "name": "hdfswriter",
+                    "parameter": {
+                        "defaultFS": "hdfs://127.0.0.1:8020",
+                        "fileType": "orc",
+                        "path": "/tmp/dataSync/oil",
+                        "fileName": "ma_order_info",
+                        "column": [
+                            {
+                                "name": "vin",
+                                "type": "STRING"
+                            },
+                            {
+                                "name": "order_id",
+                                "type": "STRING"
+                            } 
+                        ],
+                        "writeMode": "nonConflict",
+                        "fieldDelimiter": "\t",
+                        "compress":"NONE"
+                    }
+                }
+            }
+        ]
+    }
+}
