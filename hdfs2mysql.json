@@ -1,0 +1,44 @@
+{
+    "job": {
+        "content": [
+            {
+                "reader": {
+                    "name": "hdfsreader",
+                    "parameter": {
+                        "column": [
+                {"index":0,"type":"long"}
+                {"index":1,"type":"string"}
+            ],
+                        "defaultFS": "hdfs://192.168.43.20:8020",
+                        "encoding": "UTF-8",
+                        "fieldDelimiter": ",",
+                        "fileType": "text",
+                        "path": "/user/hive/warehouse/mysql2hive"
+                    }
+                },
+                "writer": {
+                    "name": "mysqlwriter",
+                    "parameter": {
+                        "column": ["id","username"],
+                        "connection": [
+                            {
+                                "jdbcUrl": "jdbc:mysql://192.168.43.20:3306/test",
+                                "table": ["target_user"]
+                            }
+                        ],
+                        "password": "111111",
+                        "preSql": [],
+                        "session": [],
+                        "username": "root",
+                        "writeMode": "insert"
+                    }
+                }
+            }
+        ],
+        "setting": {
+            "speed": {
+                "channel": "1"
+            }
+        }
+    }
+}
